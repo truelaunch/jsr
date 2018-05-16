@@ -17,6 +17,9 @@ if (age >= 62) {
   console.log("you only go to school");
 }
 
+// FIZZBUZZ exercise:
+// https://gist.github.com/sonylnagale/1b2edce04658c5a03cf5d365a6083ec5
+
 // For loop FIZZBUZZ
 for(i = 1; i <= 100; i++) {
     if(i % 3 === 0 && i % 5 === 0) {
