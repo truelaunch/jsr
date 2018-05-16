@@ -1,4 +1,5 @@
-var age = 14;
+// IF stmt for age
+var age = 16;
 
 if (age >= 62) {
   console.log("you've got social security benefits");
@@ -15,3 +16,26 @@ if (age >= 62) {
 } else {
   console.log("you only go to school");
 }
+
+// For loop FIZZBUZZ
+for(i = 1; i <= 100; i++) {
+    if(i % 3 === 0 && i % 5 === 0) {
+        console.log('fizzbuzz')
+    } else if(i % 3 === 0) {
+        console.log('fizz')
+    } else if( i % 5 === 0) {
+        console.log('buzz')
+    } else {
+        console.log(i)
+    }
+}
+
+// ES6 Fanciness FIZZBUZZ
+// let isDivideByThree = (num) => num % 3 === 0;
+// let isDivideByFive = (num) => num % 5 === 0;
+// for(let num =1; num <=100; num++) {
+//     let output = ''
+//     if(isDivideByThree(num)) output += 'fizz'
+//     if(isDivideByFive(num)) output += 'buzz'
+//     console.log(output || num)
+// }
