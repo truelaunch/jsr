@@ -10,6 +10,10 @@
 // Output the winner
 // Keep in mind the major concepts we've learned so far: control structures, functions, scope, and objects. Utilize whatever structures you feel appropriate.
 
+// Global vars
+var computerPoints = 0;
+var userPoints = 0;
+
 var runGame = function() {
   // OBJECTS
   var rock = {
@@ -30,7 +34,7 @@ var runGame = function() {
       winsTo: "paper"
   }
 
-  // Global Variables:
+  // Vars within runGame scope:
   var computerOptions = ["rock", "paper", "scissors"];
   var computerChoice = computerOptions[getRandomNum()];
   var userChoice = prompt("Enter either rock, paper, or scissors");
@@ -57,20 +61,33 @@ var runGame = function() {
   function determineWinner(user, computer) {
     if (user.stringRef === computer) {
       console.log("It's a tie!");
+      console.log(`User: ${userPoints}. Computer: ${computerPoints}`)
     } else if(user.losesTo === computer) {
+      computerPoints++;
       console.log(`Sorry, the computer beat you! ${computerChoice} beats ${userChoice}`);
     } else if(user.winsTo === computer) {
+      userPoints++;
       console.log(`You win! ${userChoice} beats ${computerChoice}`);
     } else {
       // Error state
       console.log("Please enter a valid option. Refresh to try again.");
     }
   }
-
   determineWinner(convertUserChoice(userChoice), computerChoice);
 }
 
 // Run game 3 times
-for (var i=0; i<3; i++) {
+for (var i=1; i<=3; i++) {
   runGame();
+  console.log(`User: ${userPoints}. Computer: ${computerPoints}`)
+  if(i===3) {
+    // decide overall winner
+    if (userPoints > computerPoints) {
+      alert("You win the best of 3! Refresh to play again.");
+    } else if (userPoints < computerPoints) {
+      alert("The computer won the best of 3. Refresh to play again.");
+    } else {
+      alert("It's a tie overall! Refresh to play again");
+    }
+  }
 }
