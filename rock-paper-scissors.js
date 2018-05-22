@@ -15,23 +15,21 @@ var computerPoints = 0;
 var userPoints = 0;
 
 var runGame = function() {
-  // OBJECTS
-  var rock = {
-      stringRef: "rock",
+
+  // OBJECT:
+  var userChoices = {
+    "rock": {
       losesTo: "paper",
       winsTo: "scissors"
-  }
-
-  var paper = {
-      stringRef: "paper",
+    },
+    "paper": {
       losesTo: "scissors",
       winsTo: "rock"
-  }
-
-  var scissors = {
-      stringRef: "scissors",
+    },
+    "scissors": {
       losesTo: "rock",
       winsTo: "paper"
+    }
   }
 
   // Vars within runGame scope:
@@ -39,41 +37,27 @@ var runGame = function() {
   var computerChoice = computerOptions[getRandomNum()];
   var userChoice = prompt("Enter either rock, paper, or scissors");
 
-  // function to generate a random number from 0 - 2 to utilize with options array
+  // function to generate a random number from 0 - 2 to utilize with computerOptions array
   function getRandomNum(maxNum) {
     return Math.floor(Math.random() * 3);
   }
 
-  // userInput is a string, since that is what a prompt returns.
-  // This function will convert the string into the var name that properly references the object
-  function convertUserChoice(userInput) {
-    if (userInput === "rock") {
-      return rock;
-    } else if (userInput === "scissors") {
-      return scissors;
-    } else if (userInput === "paper") {
-      return paper;
-    } else {
-      console.log("Please enter a valid option. Refresh to try again.");
-    }
-  }
-
-  function determineWinner(user, computer) {
-    if (user.stringRef === computer) {
+  function determineWinner(userInput, computer) {
+    if (userInput === computer) {
       console.log("It's a tie!");
-      console.log(`User: ${userPoints}. Computer: ${computerPoints}`)
-    } else if(user.losesTo === computer) {
+    } else if(userChoices[userInput].losesTo === computer) {
       computerPoints++;
-      console.log(`Sorry, the computer beat you! ${computerChoice} beats ${userChoice}`);
-    } else if(user.winsTo === computer) {
+      console.log(`Sorry, the computer beat you! ${computer} beats ${userInput}`);
+    } else if(userChoices[userInput].winsTo === computer) {
       userPoints++;
-      console.log(`You win! ${userChoice} beats ${computerChoice}`);
+      console.log(`You win! ${userInput} beats ${computer}`);
     } else {
       // Error state
       console.log("Please enter a valid option. Refresh to try again.");
     }
   }
-  determineWinner(convertUserChoice(userChoice), computerChoice);
+
+  determineWinner(userChoice, computerChoice);
 }
 
 // Run game 3 times
