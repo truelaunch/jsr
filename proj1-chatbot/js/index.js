@@ -51,23 +51,18 @@ function rosieResponse(wordsEntered) {
   for (var i=0; i < wordsEntered.length; i++) {
     if (wordsHi.includes(wordsEntered[i])) {
       rosieChatPane.innerHTML += `<li>What can I help you with today, Judy?</li>`;
-      return;
     }
     else if (wordsWeather.includes(wordsEntered[i])) {
       rosieChatPane.innerHTML += `<li>Today's forecase is cloudy with a chance of asteroids.</li>`;
-      return;
     }
     else if (wordsDinner.includes(wordsEntered[i])) {
       rosieChatPane.innerHTML += `<li>I'll be serving spaceballs and spaghetti.</li>`;
-      return;
     }
     else if (wordsThanks.includes(wordsEntered[i])) {
       rosieChatPane.innerHTML += `<li>You're very welcome, Judy!</li>`;
-      return;
     }
     else if (wordsBye.includes(wordsEntered[i])) {
       rosieChatPane.innerHTML += `<li>Goodbye Judy! It was nice chatting.</li>`;
-      return;
     }
   }  
 }
