@@ -8,7 +8,12 @@
 // invoke the opening message
 
 
-//CLUES:
+// Global vars:
+var wordsHi = ["hello", "hey", "hi"];
+var wordsDinner = ["supper", "dinner", "eating", "eat"];
+var wordsThanks = ["thanks", "thank"];
+var wordsBye = ["bye", "goodbye"];
+
 
 document.getElementById('chatForm').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -20,37 +25,33 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
 });
 
 function parseJaneWords(janeWords) {
+  // put all words entered into an array, replacing non alpha-numeric chars with a blank string
   let wordsEntered = janeWords.replace(/[^\w\s]/g, "").split(" ");
-  rosieResponse(wordsEntered);
-}
-
-function rosieResponse(wordsEntered) {
+  // create a new array to push lowercase versions of words into to allow for case insenstive input
   var wordsEnteredLowercase = [];
-  var wordsHi = ["hello", "hey", "hi"];
-  var wordsDinner = ["supper", "dinner", "eating", "eat"];
-  var wordsThanks = ["thanks", "thank"];
-  var wordsBye = ["bye", "goodbye"];
-  // convert wordsEntered to lowercase to be case insensitive
   for (var i=0; i < wordsEntered.length; i++) {
     wordsEnteredLowercase.push(wordsEntered[i].toLowerCase());
   }
+  rosieResponse(wordsEnteredLowercase);
+}
 
+function rosieResponse(wordsEntered) {
     // Check if any of the words entered (converted to lowercase) are included in any of the wordsX arrays.
   // If so, rosie will respond appropriately
   for (var i=0; i < wordsEntered.length; i++) {
-    if (wordsHi.includes(wordsEnteredLowercase[i])) {
+    if (wordsHi.includes(wordsEntered[i])) {
       document.getElementById("rosie").innerHTML += `<li>Hi Judy!</li>`;
       return;
     }
-    else if (wordsDinner.includes(wordsEnteredLowercase[i])) {
+    else if (wordsDinner.includes(wordsEntered[i])) {
       document.getElementById("rosie").innerHTML += `<li>I'll be serving spaceballs and spaghetti.</li>`;
       return;
     }
-    else if (wordsThanks.includes(wordsEnteredLowercase[i])) {
+    else if (wordsThanks.includes(wordsEntered[i])) {
       document.getElementById("rosie").innerHTML += `<li>You're very welcome, Judy!</li>`;
       return;
     }
-    else if (wordsBye.includes(wordsEnteredLowercase[i])) {
+    else if (wordsBye.includes(wordsEntered[i])) {
       document.getElementById("rosie").innerHTML += `<li>Goodbye Judy! It was nice chatting.</li>`;
       return;
     }
