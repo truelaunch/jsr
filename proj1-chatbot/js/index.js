@@ -40,15 +40,19 @@ function rosieResponse(wordsEntered) {
   for (var i=0; i < wordsEntered.length; i++) {
     if (wordsHi.includes(wordsEnteredLowercase[i])) {
       document.getElementById("rosie").innerHTML += `<li>Hi Judy!</li>`;
+      return;
     }
     else if (wordsDinner.includes(wordsEnteredLowercase[i])) {
       document.getElementById("rosie").innerHTML += `<li>I'll be serving spaceballs and spaghetti.</li>`;
+      return;
     }
     else if (wordsThanks.includes(wordsEnteredLowercase[i])) {
       document.getElementById("rosie").innerHTML += `<li>You're very welcome, Judy!</li>`;
+      return;
     }
     else if (wordsBye.includes(wordsEnteredLowercase[i])) {
       document.getElementById("rosie").innerHTML += `<li>Goodbye Judy! It was nice chatting.</li>`;
+      return;
     }
     else {
       document.getElementById("rosie").innerHTML += `<li>I'm sorry, Judy. I don't understand what you're saying.</li>`;
