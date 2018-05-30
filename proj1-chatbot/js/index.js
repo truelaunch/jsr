@@ -33,7 +33,7 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
 });
 
 function beginConvo() {
-  rosieChatPane.innerHTML += `<li>Hi Judy!</li>`;
+  responseFormat("Hi Judy!");
 }
 
 function parseJaneWords(janeWords) {
@@ -61,30 +61,35 @@ function rosieResponse(wordsEntered) {
     case 'hello':
     case 'hey':
     case 'hi':
-      rosieChatPane.innerHTML += `<li>What can I help you with today, Judy?</li>`;
+      responseFormat("What can I help you with today, Judy?");
       break;
     case 'weather':
     case 'outside':
     case 'temperature':
     case 'forecast':
-      rosieChatPane.innerHTML += `<li>Today's forecase is cloudy with a chance of asteroids.</li>`;
+      responseFormat("Today's forecase is cloudy with a chance of asteroids.");
       break;
     case 'supper':
     case 'dinner':
     case 'eating':
     case 'eat':
-      rosieChatPane.innerHTML += `<li>I'll be serving spaceballs and spaghetti.</li>`;
+      responseFormat("I'll be serving spaceballs and spaghetti.");
       break;
     case 'thanks':
     case 'thank':
-      rosieChatPane.innerHTML += `<li>You're very welcome, Judy!</li>`;
+      responseFormat("You're very welcome, Judy!");
       break;
     case 'bye':
     case 'goodbye':
     case 'later':
-      rosieChatPane.innerHTML += `<li>Goodbye Judy! It was nice chatting.</li>`;
+      responseFormat("Goodbye Judy! It was nice chatting.");
       break;
     default:
-      rosieChatPane.innerHTML += `<li>I'm sorry, I don't understand what you're saying, Judy.</li>`;
+      responseFormat("I'm sorry, I don't understand what you're saying, Judy.");
   }
+}
+
+// Format Rosie's response
+function responseFormat(statement) {
+  rosieChatPane.innerHTML += `<li>${statement}</li>`;
 }
