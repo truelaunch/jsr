@@ -10,11 +10,13 @@
 
 // Global vars:
 var rosieChatPane = document.getElementById("rosie");
-var wordsHi = ["hello", "hey", "hi"];
-var wordsWeather = ["weather", "outside", "temperature", "conditions", "forecast"];
-var wordsDinner = ["supper", "dinner", "eating", "eat"];
-var wordsThanks = ["thanks", "thank"];
-var wordsBye = ["bye", "goodbye", "later"];
+var knownWords = [
+"hello", "hey", "hi",
+"weather", "outside", "temperature", "conditions", "forecast",
+"supper", "dinner", "eating", "eat",
+"thanks", "thank",
+"bye", "goodbye", "later",
+];
 
 // Once DOM loaded:
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -46,23 +48,43 @@ function parseJaneWords(janeWords) {
 }
 
 function rosieResponse(wordsEntered) {
-    // Check if any of the words entered (converted to lowercase) are included in any of the wordsX arrays.
-  // If so, rosie will respond appropriately
+  var positiveWord="";
+    // Check if any of the words entered (converted to lowercase) are included in the knownWords array.
+  // If so, add to positiveWord var
   for (var i=0; i < wordsEntered.length; i++) {
-    if (wordsHi.includes(wordsEntered[i])) {
+    if (knownWords.includes(wordsEntered[i])) {
+      positiveWord = wordsEntered[i];
+    }
+  }
+  // Rosie responds according to postiveWord recognized
+  switch (positiveWord) {
+    case 'hello':
+    case 'hey':
+    case 'hi':
       rosieChatPane.innerHTML += `<li>What can I help you with today, Judy?</li>`;
-    }
-    else if (wordsWeather.includes(wordsEntered[i])) {
+      break;
+    case 'weather':
+    case 'outside':
+    case 'temperature':
+    case 'forecast':
       rosieChatPane.innerHTML += `<li>Today's forecase is cloudy with a chance of asteroids.</li>`;
-    }
-    else if (wordsDinner.includes(wordsEntered[i])) {
+      break;
+    case 'supper':
+    case 'dinner':
+    case 'eating':
+    case 'eat':
       rosieChatPane.innerHTML += `<li>I'll be serving spaceballs and spaghetti.</li>`;
-    }
-    else if (wordsThanks.includes(wordsEntered[i])) {
+      break;
+    case 'thanks':
+    case 'thank':
       rosieChatPane.innerHTML += `<li>You're very welcome, Judy!</li>`;
-    }
-    else if (wordsBye.includes(wordsEntered[i])) {
+      break;
+    case 'bye':
+    case 'goodbye':
+    case 'later':
       rosieChatPane.innerHTML += `<li>Goodbye Judy! It was nice chatting.</li>`;
-    }
-  }  
+      break;
+    default:
+      rosieChatPane.innerHTML += `<li>I'm sorry, I don't understand what you're saying, Judy.</li>`;
+  }
 }
