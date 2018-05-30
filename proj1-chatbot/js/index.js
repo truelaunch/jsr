@@ -27,7 +27,9 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
   e.preventDefault();
   var textInput = document.getElementById('chatInput');
   var janeMsg = textInput.value;
+  // display janeMsg on the page within a list item
   document.getElementById("jane").innerHTML += `<li>${janeMsg}</li>`;
+  // clear the text input after submit
   textInput.value = "";
   parseJaneWords(janeMsg);
 });
@@ -36,6 +38,8 @@ function beginConvo() {
   responseFormat("Hi Judy!");
 }
 
+// parseJaneWords makes a lowercase array out of words Jane entered entered
+// params: janeWords (string)
 function parseJaneWords(janeWords) {
   // put all words entered into an array, replacing non alpha-numeric chars with a blank string
   let wordsEntered = janeWords.replace(/[^\w\s]/g, "").split(" ");
@@ -47,6 +51,8 @@ function parseJaneWords(janeWords) {
   rosieResponse(wordsEnteredLowercase);
 }
 
+// rosieResponse defines all of Rosie's possible response statements
+// params: wordsEntered (array)
 function rosieResponse(wordsEntered) {
   var positiveWord="";
     // Check if any of the words entered (converted to lowercase) are included in the knownWords array.
