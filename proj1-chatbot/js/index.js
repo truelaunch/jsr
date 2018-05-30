@@ -9,7 +9,7 @@
 
 
 // Global vars:
-var rosieChatPane = document.getElementById("rosie");
+var chatPane = document.getElementById("chatPane");
 var knownWords = [
 "hello", "hey", "hi",
 "weather", "outside", "temperature", "conditions", "forecast",
@@ -28,7 +28,7 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
   var textInput = document.getElementById('chatInput');
   var janeMsg = textInput.value;
   // display janeMsg on the page within a list item
-  document.getElementById("jane").innerHTML += `<li>${janeMsg}</li>`;
+  document.getElementById("chatPane").innerHTML += `<li class="jane">${janeMsg}</li>`;
   // clear the text input after submit
   textInput.value = "";
   parseJaneWords(janeMsg);
@@ -97,5 +97,5 @@ function rosieResponse(wordsEntered) {
 
 // Format Rosie's response
 function responseFormat(statement) {
-  rosieChatPane.innerHTML += `<li>${statement}</li>`;
+  chatPane.innerHTML += `<li class="rosie">${statement}</li>`;
 }

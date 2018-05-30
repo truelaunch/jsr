@@ -5,25 +5,18 @@
   <meta charset="UTF-8">
   <title>Chatbot</title>
   <link rel="stylesheet" href="css/style.css">
-
-
 </head>
 
 <body>
-  <form id="chatForm">
-    <div id="chatbot">
-      <div id="chat">
-        <div class="header">
-          <h1>Rosie the Robot</h1>
-        </div>
-        <div class="chat-input">
-          <input id="chatInput" autocomplete="off" />
-        </div>
-        <ul id="jane" class="chat-pane"></ul>
-        <div id="rosie" class="chat-pane"></div>
-      </div>
-    </div>
-  </form>
+  <div id="wrapper">
+    <h1>Chat with Rosie the Robot</h1>
+    <form id="chatForm">
+      <input id="chatInput" autocomplete="off" />
+      <ul id="chatPane">
+        <!-- response bubbles get inserted here via JS -->
+      </ul>
+    </form>
+  </div>
   <script src="js/index.js"></script>
 </body>
 
