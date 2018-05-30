@@ -96,6 +96,7 @@ function rosieResponse(wordsEntered) {
 }
 
 // Format Rosie's response
+// use setTimeout to delay her response by 1s to feel more natural
 function responseFormat(statement) {
-  chatPane.innerHTML += `<li class="rosie">${statement}</li>`;
+  setTimeout(function(){ chatPane.innerHTML += `<li class="rosie">${statement}</li>`; }, 1000);
 }
