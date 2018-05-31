@@ -8,7 +8,7 @@ var knownWords = [
 "supper", "dinner", "eating", "eat",
 "thanks", "thank",
 "bye", "goodbye", "later",
-"meeting"
+"meeting", "meet"
 ];
 var classRoster = ["Bernardo", "Brandon", "Courtney", "David", "Josh",
 "Sonyl", "Alex", "Alexis", "Andrew", "Colburn", "Courtney", "Diana",
@@ -96,6 +96,7 @@ function rosieResponse(wordsEntered, randomPerson) {
       responseFormat("You're very welcome, Jane!");
       break;
     case 'meeting':
+    case 'meet':
       responseFormat(`You have a 4pm meeting with ${chooseRandomPerson()}`);
       break;
     case 'bye':
