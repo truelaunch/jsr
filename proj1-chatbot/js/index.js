@@ -18,7 +18,7 @@ var classRoster = ["Bernardo", "Brandon", "Courtney", "David", "Josh",
 // Once DOM loaded, begin convo
 document.addEventListener("DOMContentLoaded", function(event) {
   // Rosie begins conversation
-  responseFormat("Hi Jane!");
+  writeMsgToThread("Hi Jane!", false);
 });
 
 // Listen for the form to be submitted
@@ -27,13 +27,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 document.getElementById('chatForm').addEventListener('submit', function(e) {
   e.preventDefault();
   var textInput = document.getElementById('chatInput');
-  var janeMsg = textInput.value;
-  // display janeMsg on the page within a list item
-  document.getElementById("chatPane").innerHTML += `<li class="jane">${janeMsg}</li>`;
+  var userMsg = textInput.value;
+  // display the user's message
+  writeMsgToThread(userMsg, true);
+  // generate an array out of the user's words
+  var arrayOfUserWords = parseUserWords(userMsg);
+  // Determine Rosie's response
+  var response = determineResponseFromWords(arrayOfUserWords);
+  // display Rosie's message.
+  // Wrap in setTimeout to delay her response by 1s to feel more natural
+  setTimeout(function(){writeMsgToThread(response, false)}, 1000);
   // clear the text input after submit
   textInput.value = "";
-  parseJaneWords(janeMsg);
 });
+
+// Function to add user or Rosie msg to the DOM
+// includes a ternary stmt. If isUser is true (vs being Rosie), add the class of jane, otherwise use the class rosie
+function writeMsgToThread(textToWrite, isUser) {
+  document.getElementById("chatPane").innerHTML += `<li class="${isUser ? 'jane' : 'rosie'}">${textToWrite}</li>`;
+}
 
 // Function to generate a random number
 // param: maxNum. The highest random number to generate
@@ -49,21 +61,21 @@ function chooseRandomPerson() {
 }
 
 // parseJaneWords makes a lowercase array out of words Jane entered
-// params: janeWords (string)
-function parseJaneWords(janeWords) {
+// params: userWords (string)
+function parseUserWords(userWords) {
   // put all words entered into an array, replacing non alpha-numeric chars with a blank string
-  let wordsEntered = janeWords.replace(/[^\w\s]/g, "").split(" ");
+  let wordsEntered = userWords.replace(/[^\w\s]/g, "").split(" ");
   // create a new array to push lowercase versions of words into to allow for case insenstive input
   var wordsEnteredLowercase = [];
   for (var i=0; i < wordsEntered.length; i++) {
     wordsEnteredLowercase.push(wordsEntered[i].toLowerCase());
   }
-  rosieResponse(wordsEnteredLowercase);
+   return wordsEnteredLowercase;
 }
 
 // rosieResponse defines all of Rosie's possible response statements
 // params: wordsEntered (array)
-function rosieResponse(wordsEntered) {
+function determineResponseFromWords(wordsEntered) {
   var positiveWord="";
     // Check if any of the words entered (converted to lowercase) are included in the knownWords array.
   // If so, add to positiveWord var
@@ -77,40 +89,34 @@ function rosieResponse(wordsEntered) {
     case 'hello':
     case 'hey':
     case 'hi':
-      responseFormat("What can I help you with today, Jane?");
+      return "What can I help you with today, Jane?";
       break;
     case 'weather':
     case 'outside':
     case 'temperature':
     case 'forecast':
-      responseFormat("Today's forecase is cloudy with a chance of asteroids.");
+      return "Today's forecase is cloudy with a chance of asteroids.";
       break;
     case 'supper':
     case 'dinner':
     case 'eating':
     case 'eat':
-      responseFormat("I'll be serving spaceballs and spaghetti.");
+      return "I'll be serving spaceballs and spaghetti.";
       break;
     case 'thanks':
     case 'thank':
-      responseFormat("You're very welcome, Jane!");
+      return "You're very welcome, Jane!";
       break;
     case 'meeting':
     case 'meet':
-      responseFormat(`You have a 4pm meeting with ${chooseRandomPerson()}`);
+      return `You have a 4pm meeting with ${chooseRandomPerson()}`;
       break;
     case 'bye':
     case 'goodbye':
     case 'later':
-      responseFormat("Goodbye Jane! It was nice chatting.");
+      return "Goodbye Jane! It was nice chatting.";
       break;
     default:
-      responseFormat("I'm sorry, I don't understand what you're saying, Jane.");
+      return "I'm sorry, I don't understand what you're saying, Jane.";
   }
-}
-
-// Format Rosie's response
-// use setTimeout to delay her response by 1s to feel more natural
-function responseFormat(statement) {
-  setTimeout(function(){ chatPane.innerHTML += `<li class="rosie">${statement}</li>`; }, 1000);
 }
