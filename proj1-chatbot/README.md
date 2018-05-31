@@ -3,6 +3,7 @@
 ## What Rosie does
 
 * Rosie is a chatbot who responds to several inputs
+* When chatting with Rosie, you take on the role of Jane Jetson
 * Your statements don't need to be formatted in any particular way, but she is expecting to hear words that are familiar to her to know how to respond. Try saying:
   * Hi! (or Hello or Hey)
   * Asking Rosie what's for dinner

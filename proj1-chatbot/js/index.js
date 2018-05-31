@@ -32,7 +32,7 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
 });
 
 function beginConvo() {
-  responseFormat("Hi Judy!");
+  responseFormat("Hi Jane!");
 }
 
 // Function to generate a random number
@@ -77,7 +77,7 @@ function rosieResponse(wordsEntered, randomPerson) {
     case 'hello':
     case 'hey':
     case 'hi':
-      responseFormat("What can I help you with today, Judy?");
+      responseFormat("What can I help you with today, Jane?");
       break;
     case 'weather':
     case 'outside':
@@ -93,7 +93,7 @@ function rosieResponse(wordsEntered, randomPerson) {
       break;
     case 'thanks':
     case 'thank':
-      responseFormat("You're very welcome, Judy!");
+      responseFormat("You're very welcome, Jane!");
       break;
     case 'meeting':
       responseFormat(`You have a 4pm meeting with ${chooseRandomPerson()}`);
@@ -101,10 +101,10 @@ function rosieResponse(wordsEntered, randomPerson) {
     case 'bye':
     case 'goodbye':
     case 'later':
-      responseFormat("Goodbye Judy! It was nice chatting.");
+      responseFormat("Goodbye Jane! It was nice chatting.");
       break;
     default:
-      responseFormat("I'm sorry, I don't understand what you're saying, Judy.");
+      responseFormat("I'm sorry, I don't understand what you're saying, Jane.");
   }
 }
 

@@ -9,6 +9,13 @@ h1 {
 #wrapper {
   width: 300px;
   margin: auto;
+  position: relative;
+}
+
+#rosie {
+  position: absolute;
+  top: 0;
+  right: -100%;
 }
 
 #chatInput {
