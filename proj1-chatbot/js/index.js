@@ -15,11 +15,15 @@ var classRoster = ["Bernardo", "Brandon", "Courtney", "David", "Josh",
 "Ejaz", "Brit", "Andreina", "Kaitlyn", "Kalynne", "Katie", "Kevin", "Myriam",
 "Nikki", "Tenny", "Timothy"]
 
-// Once DOM loaded:
+// Once DOM loaded, begin convo
 document.addEventListener("DOMContentLoaded", function(event) {
-  beginConvo();
+  // Rosie begins conversation
+  responseFormat("Hi Jane!");
 });
 
+// Listen for the form to be submitted
+// capture the text in the input, and display it as Jane's chat bubbles
+// call parseJaneWords() to kick off function re how Rosie will respond
 document.getElementById('chatForm').addEventListener('submit', function(e) {
   e.preventDefault();
   var textInput = document.getElementById('chatInput');
@@ -30,10 +34,6 @@ document.getElementById('chatForm').addEventListener('submit', function(e) {
   textInput.value = "";
   parseJaneWords(janeMsg);
 });
-
-function beginConvo() {
-  responseFormat("Hi Jane!");
-}
 
 // Function to generate a random number
 // param: maxNum. The highest random number to generate
@@ -58,12 +58,12 @@ function parseJaneWords(janeWords) {
   for (var i=0; i < wordsEntered.length; i++) {
     wordsEnteredLowercase.push(wordsEntered[i].toLowerCase());
   }
-  rosieResponse(wordsEnteredLowercase, "Bob");
+  rosieResponse(wordsEnteredLowercase);
 }
 
 // rosieResponse defines all of Rosie's possible response statements
 // params: wordsEntered (array)
-function rosieResponse(wordsEntered, randomPerson) {
+function rosieResponse(wordsEntered) {
   var positiveWord="";
     // Check if any of the words entered (converted to lowercase) are included in the knownWords array.
   // If so, add to positiveWord var
