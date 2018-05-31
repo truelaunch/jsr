@@ -8,7 +8,12 @@ var knownWords = [
 "supper", "dinner", "eating", "eat",
 "thanks", "thank",
 "bye", "goodbye", "later",
+"meeting"
 ];
+var classRoster = ["Bernardo", "Brandon", "Courtney", "David", "Josh",
+"Sonyl", "Alex", "Alexis", "Andrew", "Colburn", "Courtney", "Diana",
+"Ejaz", "Brit", "Andreina", "Kaitlyn", "Kalynne", "Katie", "Kevin", "Myriam",
+"Nikki", "Tenny", "Timothy"]
 
 // Once DOM loaded:
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -30,7 +35,20 @@ function beginConvo() {
   responseFormat("Hi Judy!");
 }
 
-// parseJaneWords makes a lowercase array out of words Jane entered entered
+// Function to generate a random number
+// param: maxNum. The highest random number to generate
+let getRandomNum = function(maxNum) {
+  return Math.floor(Math.random() * maxNum);
+}
+
+// Select a random person from the class roster
+// This gets used in RosieResponse() if someone enters the word "meeting"
+function chooseRandomPerson() {
+  var randomPerson = classRoster[getRandomNum(classRoster.length)];
+  return randomPerson;
+}
+
+// parseJaneWords makes a lowercase array out of words Jane entered
 // params: janeWords (string)
 function parseJaneWords(janeWords) {
   // put all words entered into an array, replacing non alpha-numeric chars with a blank string
@@ -40,12 +58,12 @@ function parseJaneWords(janeWords) {
   for (var i=0; i < wordsEntered.length; i++) {
     wordsEnteredLowercase.push(wordsEntered[i].toLowerCase());
   }
-  rosieResponse(wordsEnteredLowercase);
+  rosieResponse(wordsEnteredLowercase, "Bob");
 }
 
 // rosieResponse defines all of Rosie's possible response statements
 // params: wordsEntered (array)
-function rosieResponse(wordsEntered) {
+function rosieResponse(wordsEntered, randomPerson) {
   var positiveWord="";
     // Check if any of the words entered (converted to lowercase) are included in the knownWords array.
   // If so, add to positiveWord var
@@ -76,6 +94,9 @@ function rosieResponse(wordsEntered) {
     case 'thanks':
     case 'thank':
       responseFormat("You're very welcome, Judy!");
+      break;
+    case 'meeting':
+      responseFormat(`You have a 4pm meeting with ${chooseRandomPerson()}`);
       break;
     case 'bye':
     case 'goodbye':

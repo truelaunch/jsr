@@ -7,6 +7,7 @@
   * Hi! (or Hello or Hey)
   * Asking Rosie what's for dinner
   * Asking Rosie what the weather is like
+  * Asking Rosie who you have a meeting with
   * Saying thanks
   * Saying bye
 
