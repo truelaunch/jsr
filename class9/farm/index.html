@@ -2,35 +2,45 @@
 <html lang="en">
 <head>
   <title>Virtual Farm</title>
-  <!-- bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <!-- jquery -->
-  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <!-- styling -->
   <style>
-    html, body {
-      height: 100%;
-      width: 100%;
+
+    .farm {
+      background: url("http://www.mygraphichunt.com/wp-content/uploads/2017/09/free-landscape-farm-field-vector.jpg") no-repeat;
+      background-size: contain;
+      border: 3px solid red;
+      position: relative;
+      width: 900px;
+      height: 630px;
+      margin: auto;
     }
-    body {
-      background: url("https://camo.githubusercontent.com/b281af2e6943ff9afff0d153b835df8bb6dbfadd/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f662e636c2e6c792f6974656d732f316d327233593241324a32533271324e303430762f496d616765253230323031352d31312d32312532306174253230362e35392e3534253230504d2e706e67") no-repeat;
-      background-size: cover;
-    }
+
     .animal {
       height: 100px;
       width: 100px;
       position: absolute;
-      bottom: 100px;
       cursor: pointer;
-      background-size: cover;
-      background-position: center;
+      background: center no-repeat;
+      background-size: contain;
+    }
+
+    #chicken {
+      bottom: 100px;
+      left: 0;
+    }
+
+    #turkey {
+      bottom: 50px;
+      left: 150px;
     }
   </style>
   <!-- js -->
 </head>
 <body>
 
-  <div class="container-fluid farm"></div>
+  <div class="container-fluid farm">
+    <div id="chicken" class="animal"></div>
+    <div id="turkey" class="animal"></div>
+  </div>
   <script src="app.js"></script>
 </body>
 </html>
