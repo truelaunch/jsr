@@ -14,6 +14,9 @@ $(document).ready(function() {
     // get message from input
     var msgInput = $(".box-color-note").val();
     createBox(colorInput, msgInput);
+    // clear the inputs
+    $(".box-color-input").val("");
+    $(".box-color-note").val("");
   });
 
   function createBox(color, msg) {
