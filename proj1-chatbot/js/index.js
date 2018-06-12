@@ -90,32 +90,26 @@ function determineResponseFromWords(wordsEntered) {
     case 'hey':
     case 'hi':
       return "What can I help you with today, Jane?";
-      break;
     case 'weather':
     case 'outside':
     case 'temperature':
     case 'forecast':
-      return "Today's forecase is cloudy with a chance of asteroids.";
-      break;
+      return "Today's forecast is cloudy with a chance of asteroids.";
     case 'supper':
     case 'dinner':
     case 'eating':
     case 'eat':
       return "I'll be serving spaceballs and spaghetti.";
-      break;
     case 'thanks':
     case 'thank':
       return "You're very welcome, Jane!";
-      break;
     case 'meeting':
     case 'meet':
       return `You have a 4pm meeting with ${chooseRandomPerson()}`;
-      break;
     case 'bye':
     case 'goodbye':
     case 'later':
       return "Goodbye Jane! It was nice chatting.";
-      break;
     default:
       return "I'm sorry, I don't understand what you're saying, Jane.";
   }
