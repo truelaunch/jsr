@@ -12,6 +12,10 @@
   * Saying thanks
   * Saying bye
 
+## Where Rosie lives
+
+  * You can view this project via the following link:
+  [Chat with Rosie the Robot](http://truelaunch.com/js-projects/chatbot/)
 
 ## PROJECT REQUIREMENTS PROVIDED BY INSTRUCTOR
 
