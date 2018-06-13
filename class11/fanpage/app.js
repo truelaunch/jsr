@@ -1,17 +1,23 @@
 // Initialize Firebase
 var config = {
-  apiKey: '<your-api-key>',
-  authDomain: '<your-auth-domain>',
-  databaseURL: '<your-database-url>',
-  storageBucket: '<your-storage-bucket>'
+  apiKey: 'AIzaSyAjkcz3B6aqcGUD6x52qvu-S5OwUL809R4',
+  authDomain: 'joanna-class11.firebaseapp.com',
+  databaseURL: 'https://joanna-class11.firebaseio.com',
+  storageBucket: 'joanna-class11.appspot.com'
 };
 firebase.initializeApp(config);
 
+
 $(document).ready(function() {
   var database = firebase.database();
+  // create a section for messages data in your db
+  var messagesReference = database.ref('messages');
 
 
   // CREATE
+
+  $(document).ready(function() {
+  var database = firebase.database();
 
   $('#message-form').submit(function(event) {
     // by default a form submit reloads the DOM which will subsequently reload all our JS
@@ -24,23 +30,27 @@ $(document).ready(function() {
     // clear message input (for UX purposes)
     $('#message').val('');
 
-    // create a section for messages data in your db
-    var messagesReference = database.ref('messages');
-
     // use the set method to save data to the messages
     messagesReference.push({
       message: message,
       votes: 0
     });
   });
+  getFanMessages();
+});
 
   // READ
   function getFanMessages() {
 
     // use reference to app database to listen for changes in messages data
     // hint: use something referring to 'value'
+    messagesReference.on('value', function(snapshot){
+      messageObject = snapshot.val();
+      console.log(messageObject);
+    })
 
-      // iterate through results coming from database call; messages
+    // iterate through results coming from database call; messages
+
 
         // bind the results to the DOM
   }
