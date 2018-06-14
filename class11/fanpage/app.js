@@ -15,8 +15,6 @@ $(document).ready(function() {
 
 
   // CREATE
-
-  $(document).ready(function() {
   var database = firebase.database();
 
   $('#message-form').submit(function(event) {
@@ -37,21 +35,18 @@ $(document).ready(function() {
     });
   });
   getFanMessages();
-});
 
   // READ
   function getFanMessages() {
-
     // use reference to app database to listen for changes in messages data
     // hint: use something referring to 'value'
-    messagesReference.on('value', function(snapshot){
-      messageObject = snapshot.val();
-      console.log(messageObject);
-    })
-
-    // iterate through results coming from database call; messages
-
-
-        // bind the results to the DOM
+    messagesReference.on('value', function(data){
+      var messageValue = data.val();
+      // iterate through results coming from database call; messages
+      // using a "for in" loop to iterate through values in an object
+      for (var i in messageValue) {
+        $(".message-board").append("<li>" +  messageValue[i].message + "</li>");
+      }
+    });
   }
 });
