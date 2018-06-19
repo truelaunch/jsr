@@ -9,17 +9,20 @@ $.ajax({
 	method: "GET"
 }).then(function(data) {
 	console.log(data);
-  addTitlesToDom(data);
+  addContentToDom(data);
 });
 
-function addTitlesToDom(data) {
+function addContentToDom(data) {
   // response object. results is an object with 10 articles
   var results = data.response.results;
   // get an object of all the articleContent h3s in the DOM
   var titleElementObj = $(".articleContent h3");
+  // get an object of all the article h6s in the DOM
+  var categoryElementObj = $(".articleContent h6");
 
   // loop through each articleContent h3 and insert respective title
   for(var i=0; i < titleElementObj.length; i++) {
    titleElementObj[i].innerText = results[i].webTitle;
+   categoryElementObj[i].innerText = results[i].sectionName;
   }
 }
