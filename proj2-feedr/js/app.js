@@ -1,4 +1,4 @@
-/* FEEDr */
+/* Feedr */
 
 var root = "https://content.guardianapis.com/search";
 var key = "830e55a9-fe2e-4cb2-9de4-0ba66be99e23";
@@ -26,3 +26,12 @@ function addContentToDom(data) {
    categoryElementObj[i].innerText = results[i].sectionName;
   }
 }
+
+$(".articleContent h3").click(function() {
+  console.log(this);
+  $("#popUp").removeClass("hidden");
+});
+
+$(".closePopUp").click(function() {
+  $("#popUp").addClass("hidden");
+});
