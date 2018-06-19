@@ -14,7 +14,7 @@ $.ajax({
 });
 
 function getTitlesArray(data) {
-  // response object
+  // response object. results is an object with 10 articles
   var results = data.response.results;
   var titlesArray = [];
   //get each article title. Push into titlesArray
@@ -26,5 +26,11 @@ function getTitlesArray(data) {
 }
 
 function addTitlesToDom(titles) {
-  $(".articleContent h3").text(titles[0]);
+  // get an object of all the articleContent h3s in the DOM
+   var titleElementObj = $(".articleContent h3");
+   
+   // loop through each articleContent h3 and insert title
+   for(var i=0; i < titleElementObj.length; i++) {
+     titleElementObj[i].innerText = titles[i];
+   }
 }
