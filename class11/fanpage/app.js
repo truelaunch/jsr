@@ -42,6 +42,9 @@ $(document).ready(function() {
     // hint: use something referring to 'value'
     messagesReference.on('value', function(data){
       var messageValue = data.val();
+      // clear message board DOM elements before running append();
+      // so messages don't get duplicated
+      $(".message-board").empty();
       // iterate through results coming from database call; messages
       // using a "for in" loop to iterate through values in an object
       for (var i in messageValue) {
