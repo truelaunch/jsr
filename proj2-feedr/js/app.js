@@ -9,28 +9,17 @@ $.ajax({
 	method: "GET"
 }).then(function(data) {
 	console.log(data);
-  var getTitles = getTitlesArray(data);
-  var addTitles = addTitlesToDom(getTitles);
+  addTitlesToDom(data);
 });
 
-function getTitlesArray(data) {
+function addTitlesToDom(data) {
   // response object. results is an object with 10 articles
   var results = data.response.results;
-  var titlesArray = [];
-  //get each article title. Push into titlesArray
-  for(var i=0; i < results.length; i++) {
-    var title = results[i].webTitle;
-    titlesArray.push(title);
-  }
-  return titlesArray;
-}
-
-function addTitlesToDom(titles) {
   // get an object of all the articleContent h3s in the DOM
-   var titleElementObj = $(".articleContent h3");
-   
-   // loop through each articleContent h3 and insert title
-   for(var i=0; i < titleElementObj.length; i++) {
-     titleElementObj[i].innerText = titles[i];
-   }
+  var titleElementObj = $(".articleContent h3");
+
+  // loop through each articleContent h3 and insert respective title
+  for(var i=0; i < titleElementObj.length; i++) {
+   titleElementObj[i].innerText = results[i].webTitle;
+  }
 }
