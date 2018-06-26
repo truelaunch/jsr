@@ -11,12 +11,16 @@ var root = "https://content.guardianapis.com/search";
 var key = "830e55a9-fe2e-4cb2-9de4-0ba66be99e23";
 var section = "technology";
 
+// Global vars
+var articleResults;
+
 $.ajax({
   url: `${root}?section=${section}&api-key=${key}`,
 	method: "GET"
 }).then(function(data) {
 	console.log(data);
   addContentToDom(data);
+  articleResults = data.response.results;
 });
 
 // generic function that takes into account the name of what's inside the selection.
@@ -27,26 +31,35 @@ $.ajax({
 function addContentToDom(data) {
   // response object. results is an object with 10 articles
   var results = data.response.results;
-  // get an object of all the articleContent h3s in the DOM
-  var titleElementObj = $(".articleContent h3");
-  // get an object of all the article h6s in the DOM
-  var categoryElementObj = $(".articleContent h6");
+  var articleElement = $(".articleContent");
 
-  // loop through each articleContent h3 and insert respective title
-  for(var i=0; i < titleElementObj.length; i++) {
-   titleElementObj[i].innerText = results[i].webTitle;
-   categoryElementObj[i].innerText = results[i].sectionName;
+  // loop through each article element and insert content
+  for(var i=0; i < articleElement.length; i++) {
+    var articleTitle = $(articleElement[i]).find("h3")[0];
+    var categoryLabel = $(articleElement[i]).find("h6")[0];
+    articleTitle.innerText = results[i].webTitle;
+    categoryLabel.innerText = results[i].sectionName;
+
+    var articleDataAttr = $(articleElement[i]).attr('data-article', `${i}`);
   }
 }
 
-$(".articleContent h3").click(function() {
-  console.log(this);
-  $("#popUp").removeClass("hidden");
-
-  // How to know which article was clicked so that article's content gets populated into popup?
-  // Use data-attribute to connect the HTML and the JS
-  // .parent().data("whatever")  <--
+$(".articleContent h3").on("click", function displayArticle() {
+  // get data attribute value of article section clicked
+  var articleIndex = $(this).closest(".articleContent")[0].dataset.article;
+  let selectedArticleContent = articleResults[articleIndex];
+  console.log("results!" , selectedArticleContent);
 });
+
+// $(".articleContent h3").on(function(article) {
+//   console.log(this);
+//   $("#popUp").removeClass("hidden");
+//   $("#popUp").removeClass("loader");
+//
+//   // How to know which article was clicked so that article's content gets populated into popup?
+//   // Use data-attribute to connect the HTML and the JS
+//   // .parent().data("whatever")  <--
+// });
 
 $(".closePopUp").click(function() {
   $("#popUp").addClass("hidden");
