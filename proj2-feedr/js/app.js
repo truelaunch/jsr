@@ -35,6 +35,9 @@ function addContentToDom(data) {
 
   // loop through each article element and insert content
   for(var i=0; i < articleElement.length; i++) {
+    // add a data-article attribute with the index of the article
+    var articleDataAttr = $(articleElement[i]).attr('data-article', `${i}`);
+    // DOM elements to attach content to
     var articleTitle = $(articleElement[i]).find("h3")[0];
     var categoryLabel = $(articleElement[i]).find("h6")[0];
     var articleThumb = $(articleElement[i]).find("img")[0];
@@ -44,28 +47,30 @@ function addContentToDom(data) {
     articleWordCount.innerText = `Word count: ${results[i].fields.wordcount}`;
     // add article thumbnail
     $(articleThumb).attr("src", results[i].fields.thumbnail);
-    // add a data-article attribute with the index of the article
-    var articleDataAttr = $(articleElement[i]).attr('data-article', `${i}`);
   }
 }
 
 $(".articleContent h3").on("click", function displayArticle() {
   // get data attribute value of article section clicked
-  var articleIndex = $(this).closest(".articleContent")[0].dataset.article;
-  let selectedArticleContent = articleResults[articleIndex];
-  console.log("results!" , selectedArticleContent);
+  var articleIndex = $(this).closest(".article")[0].dataset.article;
+  // show modal
+  $("#popUp").removeClass("hidden");
+  //first 600 characters of article
+  var articleSnippet = articleResults[articleIndex].fields.body.substring(0,600) + "...";
+  // add articleSnippet to paragraph in popup
+  $("#popUp p")[0].innerHTML = articleSnippet;
+  // add article title to h1 in popup
+  $("#popUp h1")[0].innerText = articleResults[articleIndex].webTitle;
+  // add href to readMore link
+  $(".readMore").attr("href", articleResults[articleIndex].webUrl);
+
+  // TODO: eventually have the loader class go away with use of a promise
+  // for now, force hide the loader
+  $("#popUp").removeClass("loader");
 });
 
-// $(".articleContent h3").on(function(article) {
-//   console.log(this);
-//   $("#popUp").removeClass("hidden");
-//   $("#popUp").removeClass("loader");
-//
-//   // How to know which article was clicked so that article's content gets populated into popup?
-//   // Use data-attribute to connect the HTML and the JS
-//   // .parent().data("whatever")  <--
-// });
 
+// Close popup
 $(".closePopUp").click(function() {
   $("#popUp").addClass("hidden");
 });
