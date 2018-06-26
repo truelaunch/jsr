@@ -38,11 +38,13 @@ function addContentToDom(data) {
     var articleTitle = $(articleElement[i]).find("h3")[0];
     var categoryLabel = $(articleElement[i]).find("h6")[0];
     var articleThumb = $(articleElement[i]).find("img")[0];
+    var articleWordCount = $(articleElement[i]).find(".impressions")[0];
     articleTitle.innerText = results[i].webTitle;
     categoryLabel.innerText = results[i].sectionName;
-    //console.log("thumb" , articleThumb);
+    articleWordCount.innerText = `Word count: ${results[i].fields.wordcount}`;
+    // add article thumbnail
     $(articleThumb).attr("src", results[i].fields.thumbnail);
-
+    // add a data-article attribute with the index of the article
     var articleDataAttr = $(articleElement[i]).attr('data-article', `${i}`);
   }
 }
