@@ -31,14 +31,17 @@ $.ajax({
 function addContentToDom(data) {
   // response object. results is an object with 10 articles
   var results = data.response.results;
-  var articleElement = $(".articleContent");
+  var articleElement = $(".article");
 
   // loop through each article element and insert content
   for(var i=0; i < articleElement.length; i++) {
     var articleTitle = $(articleElement[i]).find("h3")[0];
     var categoryLabel = $(articleElement[i]).find("h6")[0];
+    var articleThumb = $(articleElement[i]).find("img")[0];
     articleTitle.innerText = results[i].webTitle;
     categoryLabel.innerText = results[i].sectionName;
+    //console.log("thumb" , articleThumb);
+    $(articleThumb).attr("src", results[i].fields.thumbnail);
 
     var articleDataAttr = $(articleElement[i]).attr('data-article', `${i}`);
   }
