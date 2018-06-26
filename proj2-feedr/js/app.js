@@ -1,9 +1,4 @@
 /* Feedr */
-// GENERAL QUESTIONS:
-// What should I do re article images?
-// What about "impressions"? Can that be date instead?
-// How do I deal with multiple API calls for 3 different news sources??
-// Continue with click function for h3 below
 
 // THE GUARDIAN API INFO
 // put this in an object named API sources. The Guardian is the key with sub-object with this info:
@@ -22,11 +17,6 @@ $.ajax({
   addContentToDom(data);
   articleResults = data.response.results;
 });
-
-// generic function that takes into account the name of what's inside the selection.
-// use data-attribute in html
-// trigger the code based on that to read what's inside the APIs response
-// front page triggers the first one.
 
 function addContentToDom(data) {
   // response object. results is an object with 10 articles
