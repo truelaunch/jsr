@@ -7,7 +7,7 @@
 
 // THE GUARDIAN API INFO
 // put this in an object named API sources. The Guardian is the key with sub-object with this info:
-var root = "https://content.guardianapis.com/search";
+var root = "https://content.guardianapis.com/search?section=technology&show-fields=body,thumbnail,wordcount&api-key=";
 var key = "830e55a9-fe2e-4cb2-9de4-0ba66be99e23";
 var section = "technology";
 
@@ -15,7 +15,7 @@ var section = "technology";
 var articleResults;
 
 $.ajax({
-  url: `${root}?section=${section}&api-key=${key}`,
+  url: `${root}${key}`,
 	method: "GET"
 }).then(function(data) {
 	console.log(data);
