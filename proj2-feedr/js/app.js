@@ -9,11 +9,14 @@ var section = "technology";
 // Global vars
 var articleResults;
 
+// write a function for each ajax call: getGuardianArticle, getNYTArticles, etc. x3
 $.ajax({
   url: `${root}${key}`,
 	method: "GET"
 }).then(function(data) {
 	console.log(data);
+  // map data into something consistent: name, thumbnail, etc
+  // currentArticle.fields.body. <-- something like currentArticle.fields
   addContentToDom(data);
   articleResults = data.response.results;
 });
@@ -26,7 +29,7 @@ function addContentToDom(data) {
   // loop through each article element and insert content
   for(var i=0; i < articleElement.length; i++) {
     // add a data-article attribute with the index of the article
-    var articleDataAttr = $(articleElement[i]).attr('data-article', `${i}`);
+    var articleDataAttr = $(articleElement[i]).attr('data-article', `${results[i].id}`);
     // DOM elements to attach content to
     var articleTitle = $(articleElement[i]).find("h3")[0];
     var categoryLabel = $(articleElement[i]).find("h6")[0];
@@ -43,17 +46,21 @@ function addContentToDom(data) {
 // Delegated event handler: https://learn.jquery.com/events/event-delegation/
 $(".article").on("click", "h3", function displayArticle() {
   // get data attribute value of article section clicked
-  var articleIndex = $(this).closest(".article")[0].dataset.article;
+  var articleId = $(this).closest(".article")[0].dataset.article;
   // show modal
   $("#popUp").removeClass("hidden");
+  // search with .filter
+  // use articleId to find the corresponding article
+  const currentArticle = articleResults.filter(result => result.id === articleId)[0];
+  console.log(currentArticle);
   //first 600 characters of article
-  var articleSnippet = articleResults[articleIndex].fields.body.substring(0,600) + "...";
+  var articleSnippet = currentArticle.fields.body.substring(0,600) + "...";
   // add articleSnippet to paragraph in popup
   $("#popUp p")[0].innerHTML = articleSnippet;
   // add article title to h1 in popup
-  $("#popUp h1")[0].innerText = articleResults[articleIndex].webTitle;
+  $("#popUp h1")[0].innerText = currentArticle.webTitle;
   // add href to readMore link
-  $(".readMore").attr("href", articleResults[articleIndex].webUrl);
+  $(".readMore").attr("href", currentArticle.webUrl);
 
   // TODO: eventually have the loader class go away with use of a promise
   // for now, force hide the loader
