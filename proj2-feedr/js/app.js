@@ -40,7 +40,8 @@ function addContentToDom(data) {
   }
 }
 
-$(".articleContent h3").on("click", function displayArticle() {
+// Delegated event handler: https://learn.jquery.com/events/event-delegation/
+$(".article").on("click", "h3", function displayArticle() {
   // get data attribute value of article section clicked
   var articleIndex = $(this).closest(".article")[0].dataset.article;
   // show modal
