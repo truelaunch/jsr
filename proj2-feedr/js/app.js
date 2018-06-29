@@ -11,17 +11,37 @@ var apiCreds = {
 // Global vars
 var articleResults;
 
+guardianAjaxCall();
+
 // write a function for each ajax call: getGuardianArticle, getNYTArticles, etc. x3
-$.ajax({
-  url: `${apiCreds.guardian.root}${apiCreds.guardian.key}`,
-	method: "GET"
-}).then(function(data) {
-	console.log(data);
-  // map data into something consistent: name, thumbnail, etc
-  // currentArticle.fields.body. <-- something like currentArticle.body
-  addContentToDom(data);
-  articleResults = data.response.results;
-});
+
+function guardianAjaxCall() {
+  $.ajax({
+    url: `${apiCreds.guardian.root}${apiCreds.guardian.key}`,
+  	method: "GET"
+  }).then(function(data) {
+  	console.log(data);
+    articleResults = data.response.results;
+    var articleInfo = {
+      title: [],
+      body: [],
+      category: [],
+      thumb: [],
+      url: [],
+      wordCount: [],
+    }
+    for (var i=0; i < articleResults.length; i++) {
+      articleInfo.title.push(articleResults[i].webTitle);
+      articleInfo.body.push(articleResults[i].fields.body);
+      articleInfo.category.push(articleResults[i].sectionName);
+      articleInfo.thumb.push(articleResults[i].fields.thumbnail);
+      articleInfo.url.push(articleResults[i].webUrl);
+      articleInfo.wordCount.push(articleResults[i].fields.wordcount);
+    }
+    console.log(articleInfo);
+    addContentToDom(data);
+  });
+}
 
 function addContentToDom(data) {
   // response object. results is an object with 10 articles
