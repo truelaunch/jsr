@@ -23,6 +23,7 @@ function guardianAjaxCall() {
   	console.log(data);
     articleResults = data.response.results;
     var articleInfo = {
+      id: [],
       title: [],
       body: [],
       category: [],
@@ -31,6 +32,7 @@ function guardianAjaxCall() {
       wordCount: [],
     }
     for (var i=0; i < articleResults.length; i++) {
+      articleInfo.id.push(articleResults[i].id);
       articleInfo.title.push(articleResults[i].webTitle);
       articleInfo.body.push(articleResults[i].fields.body);
       articleInfo.category.push(articleResults[i].sectionName);
@@ -39,29 +41,26 @@ function guardianAjaxCall() {
       articleInfo.wordCount.push(articleResults[i].fields.wordcount);
     }
     console.log(articleInfo);
-    addContentToDom(data);
+    addContentToDom(articleInfo);
   });
 }
 
 function addContentToDom(data) {
-  // response object. results is an object with 10 articles
-  var results = data.response.results;
   var articleElement = $(".article");
-
   // loop through each article element and insert content
   for(var i=0; i < articleElement.length; i++) {
-    // add a data-article attribute with the index of the article
-    var articleDataAttr = $(articleElement[i]).attr('data-article', `${results[i].id}`);
+    // add a data-article attribute with the id of the article
+    var articleDataAttr = $(articleElement[i]).attr('data-article', `${data.id[i]}`);
     // DOM elements to attach content to
     var articleTitle = $(articleElement[i]).find("h3")[0];
     var categoryLabel = $(articleElement[i]).find("h6")[0];
     var articleThumb = $(articleElement[i]).find("img")[0];
     var articleWordCount = $(articleElement[i]).find(".impressions")[0];
-    articleTitle.innerText = results[i].webTitle;
-    categoryLabel.innerText = results[i].sectionName;
-    articleWordCount.innerText = `Word count: ${results[i].fields.wordcount}`;
-    // add article thumbnail
-    $(articleThumb).attr("src", results[i].fields.thumbnail);
+    // insert content
+    articleTitle.innerText = data.title[i];
+    categoryLabel.innerText = data.category[i];
+    articleWordCount.innerText = `Word count: ${data.wordCount[i]}`;
+    $(articleThumb).attr("src", data.thumb[i]);
   }
 }
 
