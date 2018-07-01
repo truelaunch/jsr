@@ -5,15 +5,18 @@ var apiCreds = {
   "guardian" : {
     root: "https://content.guardianapis.com/search?section=technology&show-fields=body,thumbnail,wordcount&api-key=",
     key: "830e55a9-fe2e-4cb2-9de4-0ba66be99e23",
+  },
+  "nyt" : {
+    root: "https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=",
+    key : "904a5be84c984dbcbe6395e5cd41d7fd",
   }
 }
 
 // Global vars
 var articleResults;
 
-guardianAjaxCall();
-
-// write a function for each ajax call: getGuardianArticle, getNYTArticles, etc. x3
+//guardianAjaxCall();
+nyTimesAjaxCall();
 
 function guardianAjaxCall() {
   $.ajax({
@@ -22,7 +25,7 @@ function guardianAjaxCall() {
   }).then(function(data) {
   	console.log(data);
     articleResults = data.response.results;
-    var articleInfo = {
+    let articleInfo = {
       id: [],
       title: [],
       body: [],
@@ -45,6 +48,34 @@ function guardianAjaxCall() {
   });
 }
 
+function nyTimesAjaxCall() {
+  $.ajax({
+    url: `${apiCreds.nyt.root}${apiCreds.nyt.key}`,
+  	method: "GET"
+  }).then(function(data) {
+  	console.log(data);
+    articleResults = data.results;
+    let articleInfo = {
+      id: [],
+      title: [],
+      body: [],
+      category: [],
+      thumb: [],
+      url: [],
+    }
+    for (var i=0; i < articleResults.length; i++) {
+      articleInfo.id.push(articleResults[i].short_url);
+      articleInfo.title.push(articleResults[i].title);
+      articleInfo.body.push(articleResults[i].abstract);
+      articleInfo.category.push(articleResults[i].section);
+      articleInfo.thumb.push(articleResults[i].multimedia[0].url);
+      articleInfo.url.push(articleResults[i].url);
+    }
+    console.log(articleInfo);
+    addContentToDom(articleInfo);
+  });
+}
+
 function addContentToDom(data) {
   var articleElement = $(".article");
   // loop through each article element and insert content
@@ -59,8 +90,13 @@ function addContentToDom(data) {
     // insert content
     articleTitle.innerText = data.title[i];
     categoryLabel.innerText = data.category[i];
-    articleWordCount.innerText = `Word count: ${data.wordCount[i]}`;
     $(articleThumb).attr("src", data.thumb[i]);
+    // If there are wordCount stats, show them. Else, blank
+    if (data.wordCount) {
+      articleWordCount.innerText = `Word count: ${data.wordCount[i]}`;
+    } else {
+      articleWordCount.innerText = "";
+    }
   }
 }
 
