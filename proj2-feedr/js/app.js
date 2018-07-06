@@ -23,6 +23,7 @@ $("#select").on("click", "a", function selectApi() {
         guardianAjaxCall();
         break;
     case "nyt":
+        sourceName = "New York Times";
         nyTimesAjaxCall();
         break;
     default:
@@ -31,16 +32,16 @@ $("#select").on("click", "a", function selectApi() {
 });
 
 // Global vars
-var articleResults;
 var articleInfo;
 
 function guardianAjaxCall() {
+  // set the correct name in the nav
+  $("#sourceName")[0].innerText = "The Guardian";
   $.ajax({
     url: `${apiCreds.guardian.root}${apiCreds.guardian.key}`,
   	method: "GET"
   }).then(function(data) {
-  	console.log(data);
-    articleResults = data.response.results;
+    var articleResults = data.response.results;
 
     // articleInfo gets populated via for loop
     articleInfo = [];
@@ -61,14 +62,13 @@ function guardianAjaxCall() {
 }
 
 function nyTimesAjaxCall() {
+  $("#sourceName")[0].innerText = "New York Times";
   $.ajax({
     url: `${apiCreds.nyt.root}${apiCreds.nyt.key}`,
   	method: "GET"
   }).then(function(data) {
-  	console.log(data);
-    articleResults = data.results;
+    var articleResults = data.results;
 
-    console.log("THUMB" , articleResults[1].multimedia[0].url);
     // articleInfo gets populated via for loop
     articleInfo = [];
     for (var i=0; i < articleResults.length; i++) {
@@ -120,7 +120,6 @@ $(".article").on("click", "h3", function displayArticle() {
   // use articleId to find the corresponding article
   // .filter replaces the need of a for loop for searching through an array
   const currentArticle = articleInfo.filter(result => result.id === articleId)[0];
-  console.log("Current Article" , currentArticle);
   //first 600 characters of article
   var articleSnippet = currentArticle.body.substring(0,600) + "...";
   // add articleSnippet to paragraph in popup
