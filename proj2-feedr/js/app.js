@@ -12,12 +12,27 @@ var apiCreds = {
   }
 }
 
+// by default, load Guardian api
+guardianAjaxCall();
+
+// Nav click handler.
+// Select which API to load
+$("#select").on("click", "a", function selectApi() {
+  switch($(this)[0].id) {
+    case "guardian":
+        guardianAjaxCall();
+        break;
+    case "nyt":
+        nyTimesAjaxCall();
+        break;
+    default:
+        guardianAjaxCall();
+      }
+});
+
 // Global vars
 var articleResults;
 var articleInfo;
-
-guardianAjaxCall();
-//nyTimesAjaxCall();
 
 function guardianAjaxCall() {
   $.ajax({
