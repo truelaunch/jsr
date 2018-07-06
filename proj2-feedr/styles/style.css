@@ -26,7 +26,7 @@ a {
   text-decoration: none;
 }
 
-#popUp.loader {
+/* #popUp.loader {
   background-image: url(../images/ajax_loader.gif);
   background-repeat: no-repeat;
   background-position: center center;
@@ -34,7 +34,7 @@ a {
 
 #popUp.loader .container {
   display: none;
-}
+} */
 
 #popUp .container {
   margin-top: 80px;

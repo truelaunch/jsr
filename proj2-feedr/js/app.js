@@ -128,10 +128,6 @@ $(".article").on("click", "h3", function displayArticle() {
   $("#popUp h1")[0].innerText = currentArticle.title;
   // add href to readMore link
   $(".readMore").attr("href", currentArticle.url);
-
-  // TODO: eventually have the loader class go away with use of a promise
-  // for now, force hide the loader
-  $("#popUp").removeClass("loader");
 });
 
 
