@@ -103,6 +103,10 @@ header nav a:hover {
   color: #444;
 }
 
+header nav a:hover svg {
+  fill: #444;
+}
+
 nav ul {
 	padding:0;
 	margin:0;
