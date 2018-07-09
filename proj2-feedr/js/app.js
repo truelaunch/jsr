@@ -50,7 +50,7 @@ function guardianAjaxCall() {
   $.ajax({
     url: `${apiCreds.guardian.root}${apiCreds.guardian.key}`,
   	method: "GET"
-  }).then(function(data) {
+  }).done(function(data) {
     // hide the loader
     $("#loader").addClass("hidden");
     var articleResults = data.response.results;
@@ -70,6 +70,8 @@ function guardianAjaxCall() {
       articleInfo.push(article);
     }
     addContentToDom(articleInfo);
+  }).fail(function(data){
+    alert("Oops! Looks like the data didn't load. Sorry about that!");
   });
 }
 
@@ -100,6 +102,8 @@ function nyTimesAjaxCall() {
       articleInfo.push(article);
     }
     addContentToDom(articleInfo);
+  }).fail(function(data){
+    alert("Oops! Looks like the data didn't load. Sorry about that!");
   });
 }
 
@@ -129,6 +133,8 @@ function crunchAjaxCall() {
       articleInfo.push(article);
     }
     addContentToDom(articleInfo);
+  }).fail(function(data){
+    alert("Oops! Looks like the data didn't load. Sorry about that!");
   });
 }
 
