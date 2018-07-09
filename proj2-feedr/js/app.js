@@ -9,6 +9,10 @@ var apiCreds = {
   "nyt" : {
     root: "https://api.nytimes.com/svc/topstories/v2/technology.json?api-key=",
     key : "904a5be84c984dbcbe6395e5cd41d7fd",
+  },
+  "crunch" : {
+    root: "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=",
+    key: "2ab8f3086b6f46bfbbeb754ab37385e2",
   }
 }
 
@@ -25,6 +29,10 @@ $("#select").on("click", "a", function selectApi() {
     case "nyt":
         sourceName = "New York Times";
         nyTimesAjaxCall();
+        break;
+    case "crunch":
+        sourceName = "Tech Crunch";
+        crunchAjaxCall();
         break;
     default:
         guardianAjaxCall();
@@ -79,6 +87,31 @@ function nyTimesAjaxCall() {
           "category": articleResults[i].section,
           // ternary stmt to add placeholder image if article doesn't have image
           "thumb": articleResults[i].multimedia.length > 0 ? articleResults[i].multimedia[0].url : "https://picsum.photos/75",
+          "url": articleResults[i].url,
+      };
+      articleInfo.push(article);
+    }
+    addContentToDom(articleInfo);
+  });
+}
+
+function crunchAjaxCall() {
+  $("#sourceName")[0].innerText = "Tech Crunch";
+  $.ajax({
+    url: `${apiCreds.crunch.root}${apiCreds.crunch.key}`,
+  	method: "GET"
+  }).then(function(data) {
+    var articleResults = data.articles;
+
+    // articleInfo gets populated via for loop
+    articleInfo = [];
+    for (var i=0; i < articleResults.length; i++) {
+      let article = {
+          "id": articleResults[i].url,
+          "title": articleResults[i].title,
+          "body": articleResults[i].description,
+          "category": "Technology",
+          "thumb": articleResults[i].urlToImage,
           "url": articleResults[i].url,
       };
       articleInfo.push(article);
