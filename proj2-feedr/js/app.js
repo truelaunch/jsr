@@ -43,12 +43,16 @@ $("#select").on("click", "a", function selectApi() {
 var articleInfo;
 
 function guardianAjaxCall() {
+  // show the loader
+  $("#loader").removeClass("hidden");
   // set the correct name in the nav
   $("#sourceName")[0].innerText = "The Guardian";
   $.ajax({
     url: `${apiCreds.guardian.root}${apiCreds.guardian.key}`,
   	method: "GET"
   }).then(function(data) {
+    // hide the loader
+    $("#loader").addClass("hidden");
     var articleResults = data.response.results;
 
     // articleInfo gets populated via for loop
@@ -70,11 +74,15 @@ function guardianAjaxCall() {
 }
 
 function nyTimesAjaxCall() {
+  // show the loader
+  $("#loader").removeClass("hidden");
   $("#sourceName")[0].innerText = "New York Times";
   $.ajax({
     url: `${apiCreds.nyt.root}${apiCreds.nyt.key}`,
   	method: "GET"
   }).then(function(data) {
+    // hide the loader
+    $("#loader").addClass("hidden");
     var articleResults = data.results;
 
     // articleInfo gets populated via for loop
@@ -96,11 +104,15 @@ function nyTimesAjaxCall() {
 }
 
 function crunchAjaxCall() {
+  // show the loader
+  $("#loader").removeClass("hidden");
   $("#sourceName")[0].innerText = "Tech Crunch";
   $.ajax({
     url: `${apiCreds.crunch.root}${apiCreds.crunch.key}`,
   	method: "GET"
   }).then(function(data) {
+    // hide the loader
+    $("#loader").addClass("hidden");
     var articleResults = data.articles;
 
     // articleInfo gets populated via for loop
