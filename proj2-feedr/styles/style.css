@@ -155,6 +155,7 @@ nav ul ul li {
 
 /* Search bar */
 #search {
+  display: none;
   position: relative;
   z-index: 0;
   margin: 1.5%;
