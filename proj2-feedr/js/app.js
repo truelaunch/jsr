@@ -57,6 +57,7 @@ function guardianAjaxCall() {
 
     // articleInfo gets populated via for loop
     articleInfo = [];
+    console.log(data);
     for (var i=0; i < articleResults.length; i++) {
       let article = {
           "id": articleResults[i].id,
@@ -181,8 +182,12 @@ $(".article").on("click", "h3", function displayArticle() {
   $(".readMore").attr("href", currentArticle.url);
 });
 
-
 // Close popup
 $(".closePopUp").click(function() {
   $("#popUp").addClass("hidden");
+});
+
+// search
+$("#search a").click(function() {
+  $("#search").toggleClass("active");
 });
