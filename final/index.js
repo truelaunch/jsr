@@ -1,3 +1,7 @@
+// Global vars
+var currentBrand;
+
+// API request
 var api_url = 'http://makeup-api.herokuapp.com/api/v1/products.json?product_type=nail_polish';
 
 var request = new XMLHttpRequest();
@@ -27,7 +31,6 @@ function getBrands(data) {
   console.log(data);
   var brandList = [];
   for (var i=0; i < data.length; i++) {
-    // console.log(data[i].brand);
     if (!brandList.includes(data[i].brand)) {
       brandList.push(data[i].brand);
     }
@@ -39,6 +42,15 @@ function populateDom(brands) {
   // Populate select menu with brands
   var brandSelect = document.getElementById("brands");
   for (var i=0; i < brands.length; i++) {
-    brandSelect.options[i] = new Option(brands[i]);
+    brandSelect.options[i] = new Option(brands[i], brands[i]);
+  }
+
+  // determine selected brand
+  brandSelect.onchange = function() {
+    currentBrand = brandSelect.selectedOptions[0].text;
+    console.log("Current " , currentBrand);
+    if (currentBrand == "misa") {
+      console.log("yes!");
+    }
   }
 }
