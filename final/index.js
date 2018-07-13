@@ -9,7 +9,8 @@ request.onload = function() {
     var response = request.responseText;
     // parse the JSON into a JS object
     object = JSON.parse(response);
-    doStuff(object);
+    var brands = getBrands(object);
+    var addContentToDom = populateDom(brands);
   } else {
     // We reached our target server, but it returned an error
     alert("Oops! Can't access the data");
@@ -21,6 +22,23 @@ request.onerror = function() {
 };
 request.send();
 
-function doStuff(data) {
+// create an array of all unique brands
+function getBrands(data) {
   console.log(data);
+  var brandList = [];
+  for (var i=0; i < data.length; i++) {
+    // console.log(data[i].brand);
+    if (!brandList.includes(data[i].brand)) {
+      brandList.push(data[i].brand);
+    }
+  }
+  return brandList;
+}
+
+function populateDom(brands) {
+  // Populate select menu with brands
+  var brandSelect = document.getElementById("brands");
+  for (var i=0; i < brands.length; i++) {
+    brandSelect.options[i] = new Option(brands[i]);
+  }
 }
