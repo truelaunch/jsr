@@ -1,5 +1,5 @@
 // Global vars
-var nailpolishObject;
+var filteredObject;
 
 // API request
 var api_url = 'http://makeup-api.herokuapp.com/api/v1/products.json?product_type=nail_polish';
@@ -12,9 +12,13 @@ request.onload = function() {
     // Success!
     var response = request.responseText;
     // parse the JSON into a JS object
-    nailpolishObject = JSON.parse(response);
-    var brands = getBrands(nailpolishObject);
-    var selectedBrand = populateDom(brands);
+    object = JSON.parse(response);
+    // filter out any brands that don't contain product colors
+    filteredObject = filter(object);
+    // get a list of unique brands (no duplicates)
+    var brands = getBrands(filteredObject);
+    // add content to DOM
+    populateDom(brands);
   } else {
     // We reached our target server, but it returned an error
     alert("Oops! Can't access the data");
@@ -26,12 +30,22 @@ request.onerror = function() {
 };
 request.send();
 
-// create an array of all unique brands
+// return: object with only brands that contain product_colors
+// solution from: https://stackoverflow.com/questions/15287865/remove-array-element-based-on-object-property
+function filter(object) {
+  for (var i = object.length - 1; i >= 0; --i) {
+    if (object[i].product_colors.length < 1) {
+        object.splice(i,1);
+    }
+  }
+  return object;
+}
+
+// return: string array of all unique brands
 function getBrands(data) {
-  console.log(data);
   var brandList = [];
   for (var i=0; i < data.length; i++) {
-    if (!brandList.includes(data[i].brand)) {
+    if (data[i].product_colors.length > 0 && !brandList.includes(data[i].brand)) {
       brandList.push(data[i].brand);
     }
   }
@@ -56,7 +70,7 @@ function populateDom(brands) {
 }
 
 function displayBrandInfo(selectedBrand) {
-  const currentBrandObj = nailpolishObject.filter(result => result.brand === selectedBrand)[0];
+  const currentBrandObj = filteredObject.filter(result => result.brand === selectedBrand)[0];
   var brandInfoContainer = document.getElementById("brand-info");
 
   // Create brand info template
@@ -73,11 +87,6 @@ function displayBrandInfo(selectedBrand) {
     var colorName = currentBrandObj.product_colors[i].colour_name;
     productHexList.innerHTML += `<li class="hex-block" style="background-color: ${hexColor}"><span>${colorName}</span></li>`;
   }
-
-  // console.log(productColors);
-
-
-
 
   console.log(currentBrandObj);
 }
