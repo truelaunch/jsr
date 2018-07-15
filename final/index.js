@@ -1,5 +1,5 @@
 // Global vars
-var currentBrand;
+var nailpolishObject;
 
 // API request
 var api_url = 'http://makeup-api.herokuapp.com/api/v1/products.json?product_type=nail_polish';
@@ -12,9 +12,9 @@ request.onload = function() {
     // Success!
     var response = request.responseText;
     // parse the JSON into a JS object
-    object = JSON.parse(response);
-    var brands = getBrands(object);
-    var addContentToDom = populateDom(brands);
+    nailpolishObject = JSON.parse(response);
+    var brands = getBrands(nailpolishObject);
+    var selectedBrand = populateDom(brands);
   } else {
     // We reached our target server, but it returned an error
     alert("Oops! Can't access the data");
@@ -43,14 +43,25 @@ function populateDom(brands) {
   var brandSelect = document.getElementById("brands");
   for (var i=0; i < brands.length; i++) {
     brandSelect.options[i] = new Option(brands[i], brands[i]);
+    //console.log(brands[i]);
   }
 
   // determine selected brand
   brandSelect.onchange = function() {
-    currentBrand = brandSelect.selectedOptions[0].text;
-    console.log("Current " , currentBrand);
-    if (currentBrand == "misa") {
-      console.log("yes!");
-    }
+    var currentBrand = brandSelect.selectedOptions[0].text;
+    displayBrandInfo(currentBrand);
   }
+}
+
+function displayBrandInfo(selectedBrand) {
+  const currentBrandObj = nailpolishObject.filter(result => result.brand === selectedBrand)[0];
+  var brandInfoContainer = document.getElementById("brand-info");
+
+  brandInfoContainer.innerHTML = `
+  <h2>${currentBrandObj.name} </h2>
+  <h3>Price: $${currentBrandObj.price} </h3>
+
+  `;
+
+  console.log(currentBrandObj);
 }
