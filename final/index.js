@@ -43,12 +43,14 @@ function populateDom(brands) {
   var brandSelect = document.getElementById("brands");
   for (var i=0; i < brands.length; i++) {
     brandSelect.options[i] = new Option(brands[i], brands[i]);
-    //console.log(brands[i]);
   }
+
+  // by default, display brand info for first brand in array
+  displayBrandInfo(brands[0]);
 
   // determine selected brand
   brandSelect.onchange = function() {
-    var currentBrand = brandSelect.selectedOptions[0].text;
+    currentBrand = brandSelect.selectedOptions[0].text;
     displayBrandInfo(currentBrand);
   }
 }
@@ -57,11 +59,25 @@ function displayBrandInfo(selectedBrand) {
   const currentBrandObj = nailpolishObject.filter(result => result.brand === selectedBrand)[0];
   var brandInfoContainer = document.getElementById("brand-info");
 
+  // Create brand info template
   brandInfoContainer.innerHTML = `
-  <h2>${currentBrandObj.name} </h2>
-  <h3>Price: $${currentBrandObj.price} </h3>
-
+  <h3>Collection: ${currentBrandObj.name} </h3>
+  <h4>Price: $${currentBrandObj.price} </h4>
+  <ul id="product-hex"></ul>
   `;
+
+  // add hex values to list
+  var productHexList = document.getElementById("product-hex");
+  for (let i=0; i < currentBrandObj.product_colors.length; i++) {
+    var hexColor = currentBrandObj.product_colors[i].hex_value;
+    var colorName = currentBrandObj.product_colors[i].colour_name;
+    productHexList.innerHTML += `<li class="hex-block" style="background-color: ${hexColor}"><span>${colorName}</span></li>`;
+  }
+
+  // console.log(productColors);
+
+
+
 
   console.log(currentBrandObj);
 }

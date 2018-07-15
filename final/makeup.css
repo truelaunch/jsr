@@ -1,0 +1,20 @@
+.hex-block {
+  list-style: none;
+  float: left;
+  margin: 2px;
+  height: 100px;
+  width: 100px;
+  border-radius: 4px;
+}
+
+.hex-block span {
+  display: block;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.7);
+  margin: 2px;
+  border-radius: 4px;
+}
+
+.inline {
+  display: inline;
+}
