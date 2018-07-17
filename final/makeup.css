@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: "Open Sans", arial;
+  font-family: 'Comfortaa', cursive;
+}
+
+select {
+  font-size: 18px;
+  margin: 5px;
 }
 
 .inline {
@@ -17,6 +24,18 @@ body {
 
 .hidden {
   display: none;
+}
+
+#wrapper {
+  width: 80%;
+  margin: auto;
+}
+
+header {
+  border-bottom: 1px solid #bb9797;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  text-align: center;
 }
 
 .hex-block {
