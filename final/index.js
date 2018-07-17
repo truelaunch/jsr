@@ -1,5 +1,6 @@
 // Global vars
 var filteredObject;
+var productHexList;
 
 // API request
 var api_url = 'http://makeup-api.herokuapp.com/api/v1/products.json?product_type=nail_polish';
@@ -69,6 +70,7 @@ function populateDom(brands) {
   }
 }
 
+// Adds most content to DOM
 function displayBrandInfo(selectedBrand) {
   const currentBrandObj = filteredObject.filter(result => result.brand === selectedBrand)[0];
   var brandInfoContainer = document.getElementById("brand-info");
@@ -85,8 +87,24 @@ function displayBrandInfo(selectedBrand) {
   for (let i=0; i < currentBrandObj.product_colors.length; i++) {
     var hexColor = currentBrandObj.product_colors[i].hex_value;
     var colorName = currentBrandObj.product_colors[i].colour_name;
-    productHexList.innerHTML += `<li class="hex-block" style="background-color: ${hexColor}"><span>${colorName}</span></li>`;
+    productHexList.innerHTML += `<li class="hex-block" style="background-color: ${hexColor}" data-hex="${hexColor}" title="${colorName}"><span>${colorName}</span></li>`;
   }
+  // console.log(currentBrandObj);
 
-  console.log(currentBrandObj);
+  // click event for Hex List
+  productHexList.addEventListener("click", function fillColor(evt) {
+    var hexVal = evt.target.dataset.hex;
+    var siblings = this.childNodes;
+    var manicure = document.getElementById("manicure");
+    // remove active class from any swatches that have it
+    for(var i=0; i < siblings.length; i++) {
+      if (siblings[i].classList.contains("active")) {
+        siblings[i].classList.remove("active");
+      }
+    }
+    // add active class to currently clicked swatch
+    evt.target.classList.toggle("active");
+    // change background color of manicure underlay
+    manicure.style.background = hexVal;
+  });
 }
