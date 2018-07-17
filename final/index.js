@@ -12,6 +12,8 @@ request.onload = function() {
   if (request.status >= 200 && request.status < 400) {
     // Success!
     var response = request.responseText;
+    // hide loader
+    document.getElementById("loader").classList += "hidden";
     // parse the JSON into a JS object
     object = JSON.parse(response);
     // filter out any brands that don't contain product colors
