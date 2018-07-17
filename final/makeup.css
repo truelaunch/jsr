@@ -38,6 +38,10 @@ header {
   text-align: center;
 }
 
+#product-list {
+  overflow: auto;
+}
+
 .hex-block {
   list-style: none;
   margin: 4px;
@@ -85,4 +89,20 @@ header {
   height: 100%;
   background: url(images/loader.gif) #f3f1ef no-repeat center center;
   background-size: 10%;
+}
+
+@media only screen and (max-width: 700px) {
+  .col-2 {
+    float: none;
+    width: 100%;
+  }
+
+  .hex-block {
+    height: 40px;
+    width: 40px;
+  }
+
+  .hex-block span {
+    display: none;
+  }
 }

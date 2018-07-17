@@ -1,6 +1,5 @@
 // Global vars
 var filteredObject;
-var productHexList;
 
 // API request
 var api_url = 'http://makeup-api.herokuapp.com/api/v1/products.json?product_type=nail_polish';
@@ -81,17 +80,16 @@ function displayBrandInfo(selectedBrand) {
   brandInfoContainer.innerHTML = `
   <h3>Collection: ${currentBrandObj.name} </h3>
   <h4>Price: $${currentBrandObj.price} </h4>
-  <ul id="product-hex"></ul>
+  <ul id="product-list"></ul>
   `;
 
   // add hex values to list
-  var productHexList = document.getElementById("product-hex");
+  var productHexList = document.getElementById("product-list");
   for (let i=0; i < currentBrandObj.product_colors.length; i++) {
     var hexColor = currentBrandObj.product_colors[i].hex_value;
     var colorName = currentBrandObj.product_colors[i].colour_name;
     productHexList.innerHTML += `<li class="hex-block" style="background-color: ${hexColor}" data-hex="${hexColor}" title="${colorName}"><span>${colorName}</span></li>`;
   }
-  // console.log(currentBrandObj);
 
   // click event for Hex List
   productHexList.addEventListener("click", function fillColor(evt) {
